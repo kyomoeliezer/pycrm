@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Mifumotz Live Call</title>
+<!-- Ldem -->
+    {% load static %}
+
+
+    <link rel="stylesheet" href="{% static 'popup/css/bootstrap/v3/bootstrap.css' %}">
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+		$('#myModal').modal({
+			backdrop: 'static'
+
+	});
+});
+</script>
+<style type="text/css">
+    .bs-example{
+
+    }
+.modal-header {
+    padding: 15px;
+    border-bottom: none;
+}
+body{
+    background-color: #99cccc;
+}
+.close{
+    padding: 20px;
+    background-color: red;
+    color:red;
+}
+a {color:black;}
+</style>
+</head>
+<body >
+
+<div id= '' class='bs-example'>
+    <div class="col-md-12" >
+
+
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade col-md-12" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content col-md-11" >
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                    <a href="" onclick="return confirm('Are you sure you want to exit the session?');" ><button type="button" class="btn btn-danger pull-right"  aria-hidden="false">Exit</button></a>
+                    <h3 class="page-header">
+                        <img  style="height: 40px;width: 40px;" src="{% static 'popup/img/phonecall.gif' %}" alt="incoming calls" />
+
+                           <span class="namelabel"> CUSTOMER:</span>  <span class="nametitle">NEEMA JACKSON MAOMBI</span>
+                    </h3>
+
+                </div>
+
+            <!--Success Notification------>
+
+
+          <!--/Success Notification-->
+
+
+                    <!--/T ABS-->
+     <div id="content">
+         <div class="col-md-10">
+          <ul class="nav nav-tabs">
+          <li role="presentation" class="active" style="padding-right:30px;"><a  data-toggle="tab" href="#CallInfo">Home</a></li>
+          <li role="presentation"  class="nav-link" style="color:#000 !important;padding-right:30px;"><a data-toggle="tab" href="#NewTicket">Profile</a></li>
+          <li role="presentation"  ><a style="padding-left:30px;" data-toggle="tab" href="#RecentTickets">Messages</a></li>
+        </ul>
+
+            <div id="my" class="tab-content">
+        <div class="tab-pane active" id="CallInfo">
+
+<!-- /.row tab1 -->
+
+            <div class="row">
+                <div class="col-lg-10" style="margin-left:30px; ">
+                    <div class="panel panel-default">
+
+
+
+                        <div class="panel-body col-md-10">
+                            <div class="row">
+                                <div class="col-md-6" >
+                                   <form role="form">
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                            <input type="text" class="form-control" placeholder="Full Name" value="" readonly>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i>
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Altenative mobile" value="" readonly>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-home "></i>
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Phone Number" value="" readonly>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-table"></i>
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Phone Number" readonly="true" value="">
+                                        </div>
+
+
+                                     </form>
+
+                                </div>
+
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+        </div>
+
+        <div class="tab-pane" id="NewTicket">
+
+            <!-- /.row -->
+            <div class="row">
+               <div class="col-lg-11" style="margin-left:50px; ">
+                    <div class="panel ">
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-10">
+
+                                        <input name="callerno" type="hidden" id="number" value="<?php echo $callerno; ?>" >
+                                        <input name="contactid" type="hidden" id="contactid" value="<?php echo $contactid; ?>" >
+
+                                       <div class="form-row col-md-12">
+                                        <div class="form-group col-md-6">
+                                            <label>Product Type </label>
+                                            <select class="form-control select2" name="producttype" required="true" id="producttype" required="required">
+                                            <option value="">--Select Product Type--</option>
+
+
+                                           </select>
+                                        </div>
+                                         <div class="form-group col-md-6">
+                                           <label>Product Category</label>
+
+                                            <select class="form-control select2" required="true" name="comp_subproductid" id="Complaints">
+
+
+                                            </select>
+                                        </div>
+                                     </div>
+                                     <div class="form-row col-md-12">
+                                        <div class="form-group col-md-12">
+                                         <label>Route/Bus</label>
+                                                <input class="form-control"  name="Route_or_bus" value="" Placeholder="Bus or Route">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-row col-md-12">
+                                        <div class="form-group col-md-12">
+                                           <label>Description</label>
+
+                                            <textarea  col="80"  rows="3" class="form-control" required="true" id="Complaints" name="Description"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Status</label>
+                                            <select name="status" class="form-control select2" id="status" required="true" onChange="getstatus(value);">
+                                                        <option value="">Select status</option>
+                                                        <option value="Open">Open</option>
+                                                        <option value="Closed">Closed</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                     <div class="form-row col-md-12">
+                                        <div class="form-group col-md-12">
+                                            <label>Response</label>
+                                            <textarea name="comp_response" cols="80" rows="2" class="form-control" disabled="true" id="compResp" ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row col-md-12">
+
+
+                                       <button type="submit" class="btn btn-success col-md-12" style="text-align: center; width:100%;" >Save</button>
+
+
+
+
+
+                                                     </div>
+                                                       <?php  echo form_close(); ?>
+
+
+                                     <!--   <button type="submit" class="btn btn-default">Submit Button</button>
+                                        <button type="reset" class="btn btn-default">Reset Button</button>-->
+
+
+                                       </div>
+
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+        <div class="tab-pane" id="RecentTickets">
+
+
+            <div class="row">
+                <div class="col-lg-10" style="margin-left:30px; ">
+
+                                <div class="panel ">
+
+                                    <div class="panel-body">
+                                    <hr class="dotted tall">
+
+
+
+                                       <div class="alert alert-info">
+                                        <h7 style="color:#000; font-size:16px; font-family:fantasy;">
+
+                                          <a href="javascript:;"  title="Attend" onclick=""> <button class="btn btn-primary pull-right"> <span class="pull-right glyphicon glyphicon-font"></span></button></a>
+
+
+                                        <a href="javascript:;" title="Update"  onclick="showAjaxModal('<?php echo base_url();?>index.php/Popup/general_edit_complain_popup/<?php echo $test->TicketId;?>');"> <button class="btn btn-primary pull-right"> <span class="pull-right glyphicon glyphicon-pencil"></span></button></a>
+
+                                        <?php
+
+
+
+                                             echo ucfirst($test->ProblemDetails)."<br/><br/>";
+                                              echo '<span style="color: #808080;">&#10173;</span><span style="color:#651403;">&#10173;'.$test->Status.'&#10173;</span>';
+
+
+                                           <span class="pull-right" style="color:orange;">';?>
+
+                                           <a  style="color:orange;" href="javascript:;" onclick="">
+
+                                        <?php  echo $test->TicketId; ?></a> </span><br/>
+
+                                            <?php
+                                            echo '</div>';
+                                            echo '  <div class="alert" style="margin-left:80px;background-color:#f8f8f8;">
+                                        <h7 style="color:#5cb85c;">Solutions</h7><br/>;
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                        </hr>
+                                        <br/>
+                                        <div>
+
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+
+
+                                    </div>
+                                    <!-- .panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                        <!-- .panel-body -->
+                                </div>
+
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+        </div>
+     </div>
+            <!-- /.row -->
+
+
+
+
+
+
+
+
+                    <!--/TAB-->
+
+                  </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script >
+    function getstatus(val)
+{
+  //alert(val);
+    if(val=='Open'){
+    $('#compResp').prop('disabled',true);
+      }
+      else  if(val=='Closed'){
+    $('#compResp').prop('disabled',false);
+    $('#compResp').prop('required',true);
+          }
+}
+jQuery(document).ready(function () {
+
+
+        var number=$("#number").val();
+        var contactid=$("#contactid").val();
+         // code to get all records from table via select box
+ $('#producttype').change(function()
+ {
+
+  var id = $(this).find(":selected").val();
+/* alert(number+' id'+id);*/
+
+
+var dataString = '&type='+ id ;
+    /*alert(dataString);*/
+ $.ajax
+  ({
+   type : "POST",
+   url: '<?php echo base_url(); ?>Tickets/get_product_titles',
+   data: dataString,
+   cache: true,
+   success: function(data)
+   {
+    /* alert(data);*/
+
+    $("#Complaints").html(data);
+   }
+
+  });
+ })
+ //$('#tabs').tab();
+    });
+
+</script>
+
+
+<!-- prevent mult submit-->
+ <div class="modal fade" id="preventResubmit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                CONFIRM !
+            </div>
+            <div class="modal-body">
+                Do you want to Save this?
+
+                <!-- We display the details entered by the user here -->
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="#" id="buttonPrevent" class="btn btn-success success">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>

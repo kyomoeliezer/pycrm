@@ -1,0 +1,117 @@
+<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					<ul class="nav nav-secondary">
+						<li class="nav-item">
+							<a  href="">
+								<i class="fas fa-home"></i>
+								<p>Dashboard</p>
+								<span class="caret"></span>
+							</a>
+
+						</li>
+						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">SETTINGS</h4>
+						</li>
+						<li class="nav-item">
+							<a data-bs-toggle="collapse" href="#base">
+								<i class="fas fa-layer-group"></i>
+								<p>Management</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="base">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="">
+											<span class="sub-item">Settings</span>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'users' %}">
+											<span class="sub-item">Users/Agents</span>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'roles' %}">
+											<span class="sub-item">Roles</span>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'permissions' %}">
+											<span class="sub-item">Permission</span>
+										</a>
+									</li>
+
+
+
+
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a data-bs-toggle="collapse" href="#base2">
+								<i class="fas fa-layer-group"></i>
+								<p>Setting</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="base2">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="{% url 'category_lists' %}">
+											<span class="sub-item">Category</span>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'sub_category_lists' %}">
+											<span class="sub-item">Subcategory</span>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'locations' %}">
+											<span class="sub-item">Locations</span>
+										</a>
+									</li>
+
+
+
+
+
+
+								</ul>
+							</div>
+						</li>
+						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">CUSTOMER CALLS</h4>
+						</li>
+						<li class="nav-item">
+							<a data-bs-toggle="collapse" href="#base3">
+								<i class="fas fa-layer-group"></i>
+								<p>Queries</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="base3">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="{% url 'popup' %}">
+											<span class="sub-item">Popup</span>
+										</a>
+									</li>
+
+
+
+
+
+
+								</ul>
+							</div>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>

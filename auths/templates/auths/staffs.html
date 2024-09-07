@@ -1,0 +1,114 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+    <div class="container">
+				<div class="page-inner">
+					<div class="page-header">
+						<h3 class="fw-bold mb-3">{{header}}</h3>
+
+					</div>
+					<div class="row">
+
+
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="iq-card-header-toolbar d-flex align-items-center">
+                                         <div class="dropdown">
+                                            <span >
+                                                 {% if request.user.is_superuser or 'supervisor' in request.user.role.role_name|lower    %}
+                                                <a href="{% url 'add-user' %}" class="btn btn-primary la la-plus-rounded">Add/Update</a>
+                                                {% endif %}
+                                            </span>
+
+                                         </div>
+                                      </div>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										  <table class="table mb-0 tbl">
+                <thead class="thead-light">
+                   <tr>
+                      <th scope="col">Full Name</th>
+                      <th scope="col">Phone Number</th>
+
+                       <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                      <th scope="col"></th>
+                       <th scope="col"></th>
+                   </tr>
+                </thead>
+                <tbody>
+
+                    {% for staff in users %}
+                   <tr>
+                      <td>{{staff.full_name}}</td>
+                      <td>{{staff.phone_number}}</td>
+
+                      <td>{{staff.username}} </td>
+
+                       <td>{{staff.role.role_name}} </td>
+                      <td>
+                          {% if request.user.is_superuser or 'Supervisor' in request.user.role.role_name %}
+
+
+                          <a href="{% url 'update_user' pk=staff.id %}" class="badge badge-pill badge-info">Edit</a>
+                      </td><td>
+                            <a href="javascript:;" onclick="modal_common('{% url 'delete-staff' staff_id=staff.id %}');" class="badge badge-pill badge-danger"><i class="fa fa-trash"></i></a>
+
+
+
+                          {% endif %}
+                     </td>
+                   </tr>
+                   {% endfor %}
+                </tbody>
+             </table>
+                                    </div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block js %}
+
+  <script type="text/javascript">
+      $('.tbl').DataTable({
+      dom: 'Bfrtip',
+      ordering:false,
+      paging:false,
+buttons: [
+{
+                    text: '<i class="fa fa-plus-square-o"></i>ACTIVE',
+                    className: 'btn btn-primary btn-p',
+                     action: function (e, dt, node, config)
+                        {
+                            var url = "{% url 'users' %}";
+                          window.location=url;
+
+                        }
+                },
+
+         {
+                    text: '<i class="fa fa-plus-square-o"></i>INACTIVE',
+                    className: 'btn btn-danger btn-d',
+                     action: function (e, dt, node, config)
+                        {
+                            var url = "{% url 'inactive-staff-members' %}";
+                          window.location=url;
+
+                        }
+                }]
+
+                });
+
+</script>
+    {% endblock %}

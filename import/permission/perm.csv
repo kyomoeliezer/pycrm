@@ -1,0 +1,4 @@
+perm_name,perm_desc
+can_add_user,can  add user
+can_delete_user,can  delete user
+
