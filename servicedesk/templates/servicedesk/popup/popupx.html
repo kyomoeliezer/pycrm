@@ -55,7 +55,7 @@ a {color:black;}
                     <h3 class="page-header">
                         <img  style="height: 40px;width: 40px;" src="{% static 'popup/img/phonecall.gif' %}" alt="incoming calls" />
 
-                           <span class="namelabel"> CUSTOMER:</span>  <span class="nametitle">NEEMA JACKSON MAOMBI</span>
+                           <span class="namelabel"> Caller:</span>  <span class="nametitle"><b>{{contact.name|title}}</b></span>
                     </h3>
 
                 </div>
@@ -71,8 +71,8 @@ a {color:black;}
          <div class="col-md-10">
           <ul class="nav nav-tabs">
           <li role="presentation" class="active" style="padding-right:30px;"><a  data-toggle="tab" href="#CallInfo">Home</a></li>
-          <li role="presentation"  class="nav-link" style="color:#000 !important;padding-right:30px;"><a data-toggle="tab" href="#NewTicket">Profile</a></li>
-          <li role="presentation"  ><a style="padding-left:30px;" data-toggle="tab" href="#RecentTickets">Messages</a></li>
+          <li role="presentation"  class="nav-link" style="color:#000 !important;padding-right:30px;"><a data-toggle="tab" href="#NewTicket">Attend</a></li>
+          <li role="presentation"  ><a style="padding-left:30px;" data-toggle="tab" href="#RecentTickets">Recent Tickets</a></li>
         </ul>
 
             <div id="my" class="tab-content">
@@ -92,22 +92,22 @@ a {color:black;}
                                    <form role="form">
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                            <input type="text" class="form-control" placeholder="Full Name" value="" readonly>
+                                            <input type="text" class="form-control" placeholder="Full Name" value="{{contact.mobile}}" readonly>
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-phone"></i>
                                             </span>
-                                            <input type="text" class="form-control" placeholder="Altenative mobile" value="" readonly>
+                                            <input type="text" class="form-control" placeholder="Altenative mobile" value="{{contact.location}}" readonly>
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-home "></i>
                                             </span>
-                                            <input type="text" class="form-control" placeholder="Phone Number" value="" readonly>
+                                            <input type="text" class="form-control" placeholder="Phone Number" value="{{contact.location}}" readonly>
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-table"></i>
                                             </span>
-                                            <input type="text" class="form-control" placeholder="Phone Number" readonly="true" value="">
+                                            <input type="text" class="form-control"  readonly="true" value="{{queries.count}}">
                                         </div>
 
 

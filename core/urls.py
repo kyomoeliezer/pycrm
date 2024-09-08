@@ -6,7 +6,7 @@ from .views import *
 
 urlpatterns = [
 
-    path("popup", CategoryLists.as_view(), name="category_lists"),
+    path("", CategoryLists.as_view(), name="category_lists"),
     path("add-category", CategoryCreate.as_view(), name="add_category"),
     re_path(r"^(?P<pk>[\w-]+)/editcategory$",CategoryUpdate.as_view(),name="update_category"),
     re_path(r"^(?P<pk>[\w-]+)/del-category$",CategoryDelete.as_view(),name="delete_category"),

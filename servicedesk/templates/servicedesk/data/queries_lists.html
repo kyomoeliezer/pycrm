@@ -1,0 +1,119 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container">
+				<div class="page-inner">
+					<div class="page-header">
+						<h3 class="fw-bold mb-3">{{header}}</h3>
+
+					</div>
+					<div class="row">
+
+
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="iq-card-header-toolbar d-flex align-items-center">
+
+                                      </div>
+								</div>
+								<div class="card-body">
+
+                                      <div class="col-md-12">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                        <div class="row">
+
+
+                                            <div class="form-group col-3">
+                                              {{form.fromdate|as_crispy_field}}
+                                             </div>
+                                          <div class="form-group col-3">
+                                               {{form.todate|as_crispy_field}}
+                                          </div>
+
+                                             <div class="form-group col-3">
+                                                 <br/>
+                                                 <br/>
+                                                <button type="submit" class="btn btn-primary float-right" >SEARCH</button>
+                                             </div>
+
+
+                                        </div>
+                                      </form>
+                                    </div>
+
+
+
+                                    <div class="col-md-12">
+									   <div class="table-responsive">
+                                        <table class="table mb-0 tbl">
+                                            <thead class="thead-light">
+                                               <tr>
+                                                  <th scope="col">SN</th>
+                                                  <th scope="col">Category</th>
+                                                   <th scope="col">Subcategory</th>
+                                                   <th scope="col">Caller</th>
+                                                    <th scope="col">Institution</th>
+                                                    <th scope="col">Location</th>
+                                                   <th scope="col">Mobile</th>
+                                                   <th scope="col"></th>
+                                                   <th scope="col"></th>
+                                               </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% for li in lists %}
+                                           <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{li.category}}</td>
+                                                <td>{{li.subcategory}}</td>
+
+                                              <td>{{li.contact}} </td>
+                                               <td>{{li.contact.institution}} </td>
+                                                <td>{{li.contact.mobile}} </td>
+                                               <td>
+                                                  <a href="{% url 'update_query' pk=li.id %}" class="badge badge-pill badge-info">Edit</a>
+                                              </td>
+                                               <td>
+
+                                                </td>
+
+
+
+                                             </td>
+                                           </tr>
+                                           {% endfor %}
+                                        </tbody>
+                                     </table>
+                                    </div>
+                                     </div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block js %}
+
+  <script type="text/javascript">
+      $('.tbl').DataTable({
+      dom: 'Bfrtip',
+      ordering:false,
+      paging:false,
+      buttons: [
+      'excel',
+      ]
+
+
+                });
+
+</script>
+    {% endblock %}

@@ -10,6 +10,15 @@ def is_admin(user):
      return user.role.perm.filter(perm_name='admin').exists()
 
 @register.simple_tag
+def is_agent(user):
+     return user.role.perm.filter(perm_name='is_agent').exists()
+
+
+def is_supervisor(user):
+    return user.role.perm.filter(perm_name='is_supervisor').exists()
+
+
+@register.simple_tag
 def is_checklogin(user):
      if user.is_anonymous:
          return redirect(reverse('auths:login_user'))

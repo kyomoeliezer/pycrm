@@ -45,9 +45,6 @@
                       <td>{{n.name}}</td>
 
                       <td>
-
-
-
                           <a href="{% url 'update_category' pk=n.id %}" class="badge badge-pill badge-info">Edit</a>
                       </td>
                        <td>
@@ -55,9 +52,7 @@
                             <a href="javascript:;" onclick="modal_common('{% url 'delete_category' pk=n.id%}');" class="badge badge-pill badge-danger"><i class="fa fa-trash"></i></a>
 
                             {% endif %}
-
-
-                     </td>
+                        </td>
                    </tr>
                    {% endfor %}
                 </tbody>

@@ -15,7 +15,8 @@ class Contact(BaseDB):
 class CustomerQuery(BaseDB):
     ticketNo = models.CharField(max_length=300, verbose_name='TicketNo',unique=True)
     orderno = models.IntegerField( verbose_name='OrderNo', unique=True)
-    category=models.ForeignKey('core.Category',on_delete=models.DO_NOTHING,related_name='catgory')
+    contact = models.ForeignKey('servicedesk.Contact', on_delete=models.DO_NOTHING, related_name='contact',null=True)
+    category=models.ForeignKey('core.Category',on_delete=models.DO_NOTHING)
     subcategory = models.ForeignKey('core.Category', on_delete=models.DO_NOTHING, related_name='userauth', blank=True,null=True)
     desc = models.TextField( verbose_name='Description', blank=True, null=True)
     agent=models.ForeignKey('auths.User',on_delete=models.DO_NOTHING,related_name='useragentservice')
