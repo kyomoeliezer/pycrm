@@ -4,6 +4,7 @@
 <title>Mifumotz Live Call</title>
 <!-- Ldem -->
     {% load static %}
+     {% load crispy_forms_tags %}
 
 
     <link rel="stylesheet" href="{% static 'popup/css/bootstrap/v3/bootstrap.css' %}">
@@ -70,13 +71,13 @@ a {color:black;}
      <div id="content">
          <div class="col-md-10">
           <ul class="nav nav-tabs">
-          <li role="presentation" class="active" style="padding-right:30px;"><a  data-toggle="tab" href="#CallInfo">Home</a></li>
-          <li role="presentation"  class="nav-link" style="color:#000 !important;padding-right:30px;"><a data-toggle="tab" href="#NewTicket">Attend</a></li>
-          <li role="presentation"  ><a style="padding-left:30px;" data-toggle="tab" href="#RecentTickets">Recent Tickets</a></li>
+          <li role="presentation" class="{% if tab == 'home' %} active {% endif %}"  style="padding-right:30px;"><a  data-toggle="tab" href="#CallInfo">Home</a></li>
+          <li role="presentation"  class="{% if tab == 'attend' %} active {% endif %}" style="color:#000 !important;padding-right:30px;"><a data-toggle="tab" href="#NewTicket">Attend</a></li>
+          <li role="presentation"  class="{% if tab == 'recent' %} active {% endif %}" ><a style="padding-left:30px;" data-toggle="tab" href="#RecentTickets">Recent Tickets</a></li>
         </ul>
 
             <div id="my" class="tab-content">
-        <div class="tab-pane active" id="CallInfo">
+        <div class="tab-pane {% if tab == 'home' %} active {% endif %}" id="CallInfo">
 
 <!-- /.row tab1 -->
 
@@ -128,7 +129,7 @@ a {color:black;}
 
         </div>
 
-        <div class="tab-pane" id="NewTicket">
+        <div class="tab-pane {% if tab == 'attend' %} active {% endif %}" id="NewTicket">
 
             <!-- /.row -->
             <div class="row">
@@ -139,34 +140,18 @@ a {color:black;}
                             <div class="row">
                                 <div class="col-lg-10">
 
-                                        <input name="callerno" type="hidden" id="number" value="<?php echo $callerno; ?>" >
-                                        <input name="contactid" type="hidden" id="contactid" value="<?php echo $contactid; ?>" >
+                                        <input name="callerno" type="hidden" id="number" value="{{contact.mobile}}" >
+                                        <input name="contactid" type="hidden" id="contactid" value="{{contact.id}}" >
 
                                        <div class="form-row col-md-12">
                                         <div class="form-group col-md-6">
-                                            <label>Product Type </label>
-                                            <select class="form-control select2" name="producttype" required="true" id="producttype" required="required">
-                                            <option value="">--Select Product Type--</option>
-
-
-                                           </select>
+                                           {{form.category|as_crispy_field}}
                                         </div>
                                          <div class="form-group col-md-6">
-                                           <label>Product Category</label>
-
-                                            <select class="form-control select2" required="true" name="comp_subproductid" id="Complaints">
-
-
-                                            </select>
+                                           {{form.subcategory|as_crispy_field}}
                                         </div>
                                      </div>
-                                     <div class="form-row col-md-12">
-                                        <div class="form-group col-md-12">
-                                         <label>Route/Bus</label>
-                                                <input class="form-control"  name="Route_or_bus" value="" Placeholder="Bus or Route">
 
-                                        </div>
-                                    </div>
                                     <div class="form-row col-md-12">
                                         <div class="form-group col-md-12">
                                            <label>Description</label>
@@ -174,13 +159,7 @@ a {color:black;}
                                             <textarea  col="80"  rows="3" class="form-control" required="true" id="Complaints" name="Description"></textarea>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label>Status</label>
-                                            <select name="status" class="form-control select2" id="status" required="true" onChange="getstatus(value);">
-                                                        <option value="">Select status</option>
-                                                        <option value="Open">Open</option>
-                                                        <option value="Closed">Closed</option>
-
-                                            </select>
+                                            {{form.status|as_crispy_field}}
                                         </div>
                                     </div>
                                      <div class="form-row col-md-12">
@@ -220,7 +199,7 @@ a {color:black;}
             <!-- /.row -->
         </div>
 
-        <div class="tab-pane" id="RecentTickets">
+        <div class="tab-pane {% if tab == 'recent' %} active {% endif %}" id="RecentTickets">
 
 
             <div class="row">

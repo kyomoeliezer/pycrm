@@ -10,17 +10,20 @@ from servicedesk.models import *
 from servicedesk.forms import *
 from auths.common_roles import *
 from django.contrib import messages
-
+from django.db.models import  Q
 
 class PopupView(LoginRequiredMixin,CreateView):
     redirect_field_name = 'next'
     login_url = reverse_lazy('login_user')
     template_name = 'servicedesk/popup/popupx.html'
     model = CustomerQuery
+    form_class =AttendForm
     context_object_name = 'form'
 
     def get(self,request,*args,**kwargs):
         context={}
+        context['tab']=request.GET.get('tab')
+        context['form']=self.form_class
         context['contact']=contact=Contact.objects.filter(mobile__iexact=request.GET.get('caller')).first()
         context['queries'] = CustomerQuery.objects.filter(contact=contact).order_by('-id')
         return render(request,self.template_name,context)
@@ -45,7 +48,7 @@ class PopupNewView(LoginRequiredMixin,CreateView):
             form=form.save(commit=False)
             form.created_by=request.user
             form.save()
-            urel=reverse('popup')+str('?caller='+request.POST.get('mobile'))
+            urel=reverse('popup_distribute')+str('?caller='+request.POST.get('mobile'))+'&tab=attend'
             return redirect(urel)
 
             #return HttpResponse(request.POST.get('mobile')+str(request.GET.get('caller')))
@@ -175,6 +178,18 @@ class UpdateQuery(LoginRequiredMixin,UpdateView):
         return context
 
 
+class PopUpIntroView(LoginRequiredMixin,View):
+    redirect_field_name = 'next'
+    login_url = reverse_lazy('login_user')
+
+    def get(self,request,*args,**kwargs):
+        contact=Contact.objects.filter(Q(mobile__iexact=request.GET.get('caller'))|Q(mobile2__iexact=request.GET.get('caller'))).first()
+        if contact:
+            return redirect(reverse('popup')+'?caller='+request.GET.get('caller')+'&tab='+request.GET.get('tab'))
+        else:
+            return redirect(reverse('new_popup') +'?caller='+request.GET.get('caller')+'&tab='+request.GET.get('tab'))
+
+        return render(request,self.template_name,context)
 
 
 
