@@ -10,6 +10,9 @@ urlpatterns = [
     path("popdx", PopUpIntroView.as_view(), name="popup_distribute"),
 
     path("contacts", ContactLists.as_view(), name="contacts"),
-    path("QueryLists",QueryLists.as_view(),name='queries')
+    path("QueryLists",QueryLists.as_view(),name='queries'),
+    re_path(r"^(?P<pk>[\w-]+)/updatequery",UpdateQuery.as_view(),name='update_query'),
+    re_path(r"^(?P<pk>[\w-]+)/attend",AttendQuery.as_view(),name='attend_query')
+
 
     ]

@@ -19,9 +19,10 @@ class CustomerQuery(BaseDB):
     category=models.ForeignKey('core.Category',on_delete=models.DO_NOTHING)
     subcategory = models.ForeignKey('core.Subcategory', on_delete=models.DO_NOTHING, related_name='userauth', blank=True,null=True)
     desc = models.TextField( verbose_name='Description', blank=True, null=True)
-    agent=models.ForeignKey('auths.User',on_delete=models.DO_NOTHING,related_name='useragentservice')
-    escalatedto = models.ForeignKey('auths.User', on_delete=models.DO_NOTHING, related_name='escalationuser')
+    #agent=models.ForeignKey('auths.User',on_delete=models.DO_NOTHING,related_name='useragentservice')
+    escalatedto = models.ForeignKey('auths.User', on_delete=models.DO_NOTHING, related_name='escalationuser',null=True)
     status = models.CharField(max_length=300, verbose_name='TicketStatus',choices=(('Open','Open'),('Attended','Attended'),('Escalated','Escalated'),('Closed','Closed')))
+    response = models.TextField( verbose_name='Response', blank=True, null=True)
 
     def __str__(self):
         return self.name

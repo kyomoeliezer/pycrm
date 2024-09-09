@@ -73,12 +73,14 @@
                                                 <td>{{li.subcategory}}</td>
 
                                               <td>{{li.contact}} </td>
-                                               <td>{{li.contact.institution}} </td>
-                                                <td>{{li.contact.mobile}} </td>
+                                               <td>{% if li.contact.institution %}{{li.contact.institution}} {% endif %}</td>
+                                                <td>{{li.contact.location}} </td>
+                                               <td>{{li.contact.mobile}} </td>
                                                <td>
                                                   <a href="{% url 'update_query' pk=li.id %}" class="badge badge-pill badge-info">Edit</a>
                                               </td>
                                                <td>
+                                                   <a href="javascript:;"  title="Attend" onclick="showAjaxModal(' {% url 'attend_query' pk=li.id %}');" class="badge badge-pill badge-success">Attend</a>
 
                                                 </td>
 

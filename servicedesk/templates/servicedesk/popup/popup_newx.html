@@ -70,7 +70,7 @@ a {color:black;}
                         <div class="panel-body">
                             <div class="row">
 
-                            <a href=""><button class="btn btn-success pull-right">Click here if he used another number</button></a>
+                            <a href="{% url 'queries' %}"><button class="btn btn-success pull-right">Click here if he used another number</button></a>
                                 <div class="col-lg-12">
                                         <form role="form" action="" method="POST">
                                             {% csrf_token %}

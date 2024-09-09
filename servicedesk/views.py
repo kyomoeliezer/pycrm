@@ -10,7 +10,8 @@ from servicedesk.models import *
 from servicedesk.forms import *
 from auths.common_roles import *
 from django.contrib import messages
-from django.db.models import  Q
+from django.db.models import  *
+from core.common import create_ticket
 
 class PopupView(LoginRequiredMixin,CreateView):
     redirect_field_name = 'next'
@@ -27,6 +28,31 @@ class PopupView(LoginRequiredMixin,CreateView):
         context['contact']=contact=Contact.objects.filter(mobile__iexact=request.GET.get('caller')).first()
         context['queries'] = CustomerQuery.objects.filter(contact=contact).order_by('-id')
         return render(request,self.template_name,context)
+
+    def post(self,request,**kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            contact = Contact.objects.filter(id=request.POST.get('contact')).first()
+
+            form=form.save(commit=False)
+            form.created_by=request.user
+            no=0
+            if CustomerQuery.objects.filter(orderno__gt=0).exists():
+                no=CustomerQuery.objects.filter(orderno__gt=0).aggregate(max_id=Max('orderno'))['max_id']
+
+            form.ticketNo=create_ticket(no+1)
+            form.orderno=no+1
+            form.desc = request.POST.get('desc')
+
+            form.save()
+            urel=reverse('popup_distribute')+str('?caller='+contact.mobile)+'&tab=recent'
+            return redirect(urel)
+
+            #return HttpResponse(request.POST.get('mobile')+str(request.GET.get('caller')))
+        caller = request.GET.get('caller')
+        return render(request, self.template_name, {'caller': caller, 'form': self.form_class})
+
+
 
 
 class PopupNewView(LoginRequiredMixin,CreateView):
@@ -177,6 +203,23 @@ class UpdateQuery(LoginRequiredMixin,UpdateView):
         context['header'] = self.header
         return context
 
+class AttendQuery(LoginRequiredMixin,UpdateView):
+    redirect_field_name = 'next'
+    login_url = reverse_lazy('login_user')
+    model = CustomerQuery
+    fields = ['status','response']
+    template_name = 'servicedesk/popup/modal/modal_attend_general_ticket.html'
+    context_object_name = 'form'
+    header = 'Update Query'
+    success_url = reverse_lazy('queries')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['req']=CustomerQuery.objects.filter(id=self.kwargs['pk']).first()
+        context['header'] = self.header
+        return context
+
+
 
 class PopUpIntroView(LoginRequiredMixin,View):
     redirect_field_name = 'next'
@@ -185,9 +228,17 @@ class PopUpIntroView(LoginRequiredMixin,View):
     def get(self,request,*args,**kwargs):
         contact=Contact.objects.filter(Q(mobile__iexact=request.GET.get('caller'))|Q(mobile2__iexact=request.GET.get('caller'))).first()
         if contact:
-            return redirect(reverse('popup')+'?caller='+request.GET.get('caller')+'&tab='+request.GET.get('tab'))
+            if request.GET.get('tab'):
+                return redirect(reverse('popup')+'?caller='+request.GET.get('caller')+'&tab='+request.GET.get('tab'))
+            else:
+                return redirect(
+                    reverse('popup') + '?caller=' + request.GET.get('caller') + '&tab=recent')
+
         else:
-            return redirect(reverse('new_popup') +'?caller='+request.GET.get('caller')+'&tab='+request.GET.get('tab'))
+            if request.GET.get('tab'):
+                return redirect(reverse('new_popup') +'?caller='+request.GET.get('caller')+'&tab='+request.GET.get('tab'))
+            else:
+                return redirect(reverse('new_popup') + '?caller=' + request.GET.get('caller') + '&tab=home')
 
         return render(request,self.template_name,context)
 

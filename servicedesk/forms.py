@@ -25,12 +25,14 @@ class SeachData(forms.ModelForm):
 class AttendForm(forms.ModelForm):
 
     ticketNo=forms.CharField(required=False)
+    response=forms.CharField(required=False)
 
     class Meta:
         model = CustomerQuery
         fields = [
-            "status",'category','subcategory','desc','status'
+            "status",'category','subcategory','desc','contact','response'
         ]
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['request'].widget.attrs['class'] = 'select2'
+        self.fields['status'].widget.attrs['class'] = 'select2'
+        self.fields['status'].widget.attrs['class'] = 'statuschange'

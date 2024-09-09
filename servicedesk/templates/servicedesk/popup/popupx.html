@@ -52,7 +52,7 @@ a {color:black;}
             <div class="modal-content col-md-11" >
                 <div class="modal-header">
                     <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-                    <a href="" onclick="return confirm('Are you sure you want to exit the session?');" ><button type="button" class="btn btn-danger pull-right"  aria-hidden="false">Exit</button></a>
+                    <a href="{% url 'queries' %}" onclick="return confirm('Are you sure you want to exit the session?');" ><button type="button" class="btn btn-danger pull-right"  aria-hidden="false">Exit</button></a>
                     <h3 class="page-header">
                         <img  style="height: 40px;width: 40px;" src="{% static 'popup/img/phonecall.gif' %}" alt="incoming calls" />
 
@@ -139,9 +139,10 @@ a {color:black;}
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-10">
-
+                                        <form role="form" action="" method="POST">
+                                            {% csrf_token %}
                                         <input name="callerno" type="hidden" id="number" value="{{contact.mobile}}" >
-                                        <input name="contactid" type="hidden" id="contactid" value="{{contact.id}}" >
+                                        <input name="contact" type="hidden" id="contactid" value="{{contact.id}}" >
 
                                        <div class="form-row col-md-12">
                                         <div class="form-group col-md-6">
@@ -156,7 +157,7 @@ a {color:black;}
                                         <div class="form-group col-md-12">
                                            <label>Description</label>
 
-                                            <textarea  col="80"  rows="3" class="form-control" required="true" id="Complaints" name="Description"></textarea>
+                                            <textarea  col="80"  rows="3" class="form-control" required="true" id="Complaints" name="desc"></textarea>
                                         </div>
                                         <div class="form-group col-md-12">
                                             {{form.status|as_crispy_field}}
@@ -165,27 +166,17 @@ a {color:black;}
                                      <div class="form-row col-md-12">
                                         <div class="form-group col-md-12">
                                             <label>Response</label>
-                                            <textarea name="comp_response" cols="80" rows="2" class="form-control" disabled="true" id="compResp" ></textarea>
+                                            <textarea name="response" cols="80" rows="2" class="form-control" disabled="true" id="compResp" ></textarea>
                                         </div>
                                     </div>
                                     <div class="form-row col-md-12">
 
 
                                        <button type="submit" class="btn btn-success col-md-12" style="text-align: center; width:100%;" >Save</button>
+                                    </div>
+                                        </form>
 
-
-
-
-
-                                                     </div>
-                                                       <?php  echo form_close(); ?>
-
-
-                                     <!--   <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>-->
-
-
-                                       </div>
+                                </div>
 
                             </div>
                             <!-- /.row (nested) -->
@@ -210,45 +201,37 @@ a {color:black;}
                                     <div class="panel-body">
                                     <hr class="dotted tall">
 
+                                        {% for reqst in queries %}
+
 
 
                                        <div class="alert alert-info">
-                                        <h7 style="color:#000; font-size:16px; font-family:fantasy;">
+                                        <h7 style="color:#000; font-size:16px; ">
 
-                                          <a href="javascript:;"  title="Attend" onclick=""> <button class="btn btn-primary pull-right"> <span class="pull-right glyphicon glyphicon-font"></span></button></a>
-
-
-                                        <a href="javascript:;" title="Update"  onclick="showAjaxModal('<?php echo base_url();?>index.php/Popup/general_edit_complain_popup/<?php echo $test->TicketId;?>');"> <button class="btn btn-primary pull-right"> <span class="pull-right glyphicon glyphicon-pencil"></span></button></a>
-
-                                        <?php
+                                          <a href="javascript:;"  title="Attend" onclick=""> <button class="btn btn-warning pull-right"> update</button></a>
 
 
+                                        <a href="javascript:;"  title="Attend" onclick="showAjaxModal(' {% url 'attend_query' pk=reqst.id %}');" class="btn btn-success pull-right">Attend</a>
 
-                                             echo ucfirst($test->ProblemDetails)."<br/><br/>";
-                                              echo '<span style="color: #808080;">&#10173;</span><span style="color:#651403;">&#10173;'.$test->Status.'&#10173;</span>';
+                                             <span style="color: #808080;">{{reqst.category}}&#10173;{{reqst.subcategory}}</span><span style="color:#651403;">&#10173;{{reqst.status}}</span>;
+                                                <br/><h7 style="font-size:11px;">{{reqst.created_on}}</h7><br/>
+                                                <p style="color: #000;">
+                                                    {{reqst.desc|lower}}
+                                                </p>
 
 
-                                           <span class="pull-right" style="color:orange;">';?>
+                                           <span class="pull-right" style="color:orange;">
 
-                                           <a  style="color:orange;" href="javascript:;" onclick="">
-
-                                        <?php  echo $test->TicketId; ?></a> </span><br/>
-
-                                            <?php
-                                            echo '</div>';
-                                            echo '  <div class="alert" style="margin-left:80px;background-color:#f8f8f8;">
-                                        <h7 style="color:#5cb85c;">Solutions</h7><br/>;
+                                           <a  style="color:orange;" href="javascript:;" onclick=""></a> </span><br/>
 
 
 
-
-
-
-
-
-
-
-                                        </div>
+                                            <div class="alert" style="margin-left:80px;background-color:#f8f8f8;">
+                                                <h7 style="color:#5cb85c;">Response</h7><br/>
+                                                        <p style="color:#000;">
+                                                           {% if reqst.response %} {{reqst.response}}{% endif %}
+                                                        </p>
+                                                </div>
                                         </hr>
                                         <br/>
                                         <div>
@@ -260,6 +243,7 @@ a {color:black;}
 
 
                                     </div>
+                                        {% endfor %}
                                     <!-- .panel-body -->
                                 </div>
                                 <!-- /.panel -->
@@ -274,14 +258,6 @@ a {color:black;}
                     <!-- /.panel -->
         </div>
      </div>
-            <!-- /.row -->
-
-
-
-
-
-
-
 
                     <!--/TAB-->
 
@@ -294,11 +270,13 @@ a {color:black;}
 </div>
 </div>
 
-<script >
+<script>
+
     function getstatus(val)
 {
-  //alert(val);
+
     if(val=='Open'){
+    alert(val);
     $('#compResp').prop('disabled',true);
       }
       else  if(val=='Closed'){
@@ -307,6 +285,12 @@ a {color:black;}
           }
 }
 jQuery(document).ready(function () {
+$('.statuschange').change(function()
+ {
+
+ getstatus($(this).find(":selected").val());
+
+ });
 
 
         var number=$("#number").val();
@@ -370,7 +354,7 @@ var dataString = '&type='+ id ;
 
 
 
-
+{% include 'base/modal.html' %}
 
 </body>
 </html>
